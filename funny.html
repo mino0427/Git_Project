@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>일상 힐링 개그 웹툰 큐레이션</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --primary-light: #fef3c7;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #ef4444;
+      --thumbs: #3b82f6;
+      --naver-green: #03c75a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 40px 20px 80px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e293b 0%, #2d1e44 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 36px 30px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::after {
+      content: "😂";
+      position: absolute;
+      right: 20px;
+      bottom: -15px;
+      font-size: 110px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--primary-light);
+      color: #92400e;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .section-title i {
+      color: var(--primary);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #475569;
+    }
+
+    .thumb-wrapper {
+      width: 100%;
+      height: 300px;
+      background-color: #0b1120;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #111827;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .card:hover .thumb-img {
+      transform: scale(1.03);
+    }
+
+    .card-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .card-index {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(3, 199, 90, 0.15);
+      color: var(--naver-green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .card-author {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .info-box .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .info-box .desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .reason-box {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px 10px 10px 4px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+    }
+
+    .reason-box .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .reason-box .desc {
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .interaction-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+    }
+
+    .btn-interact {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-interact:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .btn-like.active {
+      color: var(--accent);
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.12);
+    }
+    .btn-like.active svg {
+      fill: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-upvote:active {
+      transform: scale(0.95);
+    }
+    .btn-upvote.voted {
+      color: var(--thumbs);
+      border-color: rgba(59, 130, 246, 0.4);
+      background: rgba(59, 130, 246, 0.12);
+    }
+
+    .count-badge {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .card-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-link {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: var(--primary);
+      color: #1e1e24;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      transition: background 0.15s ease;
+    }
+
+    .btn-link:hover {
+      background-color: var(--primary-hover);
+      color: #ffffff;
+    }
+
+    .analysis-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .analysis-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .analysis-card {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .analysis-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.05rem;
+    }
+
+    .analysis-header i {
+      color: var(--primary);
+    }
+
+    .analysis-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .analysis-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.93rem;
+      color: #cbd5e1;
+    }
+
+    .analysis-list li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .highlight-box {
+      margin-top: 14px;
+      padding: 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 8px;
+      border: 1px dashed rgba(16, 185, 129, 0.3);
+      font-size: 0.9rem;
+      color: #6ee7b7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <span class="badge">
+        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> 웹툰 장르 선정
+      </span>
+      <h1>선정 장르: 개그</h1>
+      <p><strong>장르 선정 이유:</strong> 일상 개그 웹툰으로 힐링할 수 있다. ✨</p>
+    </header>
+
+    <section>
+      <h2 class="section-title">
+        <i data-lucide="flame"></i> 추천 웹툰 리스트
+      </h2>
+
+      <div class="grid">
+        <!-- 1. 대학일기 (funnyimage3.png) -->
+        <article class="card" data-id="toon-1" data-base-votes="142">
+          <div class="thumb-wrapper">
+            <img 
+              src="images/funnyimage3.png" 
+              onerror="this.onerror=null; this.src='https://image-comic.pstatic.net/webtoon/679519/thumbnail/thumbnail_IMAG21_3937989392237890911.jpg';" 
+              alt="대학일기" 
+              class="thumb-img"
+            />
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="card-index">RECOMMEND #01</span>
+              <span class="platform-badge">네이버웹툰</span>
+            </div>
+            <h3 class="card-title">대학일기</h3>
+            <p class="card-author"><i data-lucide="user" style="width: 14px; height: 14px;"></i> 작가: 자까</p>
+
+            <div class="info-box">
+              <span class="label"><i data-lucide="book-open" style="width: 13px; height: 13px;"></i> 웹툰 소개</span>
+              <p class="desc">로망이 꽃피는 캠퍼스는 없다. 극사실주의에 기반한 너무나 현실적인 우리의 대학일기</p>
+            </div>
+
+            <div class="reason-box">
+              <span class="label"><i data-lucide="sparkle" style="width: 13px; height: 13px;"></i> 추천 이유</span>
+              <p class="desc">자까 작가님의 대학일기와 같은 시리즈는 많은 사람들이 공감할 수 있다.</p>
+            </div>
+
+            <div class="interaction-bar">
+              <button class="btn-interact btn-like" onclick="toggleLike('toon-1')">
+                <i data-lucide="heart" style="width: 15px; height: 15px;"></i>
+                <span>좋아요</span>
+              </button>
+              <button class="btn-interact btn-upvote" onclick="addVote('toon-1')">
+                <i data-lucide="thumbs-up" style="width: 15px; height: 15px;"></i>
+                <span>추천</span>
+                <span class="count-badge" id="votes-toon-1">142</span>
+              </button>
+            </div>
+
+            <div class="card-actions">
+              <a href="https://comic.naver.com/webtoon/list?titleId=679519" target="_blank" rel="noopener noreferrer" class="btn-link">
+                작품 감상하러 가기 <i data-lucide="external-link" style="width: 15px; height: 15px;"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. 마루는 강쥐 (funnyimage2.jpg) -->
+        <article class="card" data-id="toon-2" data-base-votes="198">
+          <div class="thumb-wrapper">
+            <img 
+              src="images/funnyimage2.jpg" 
+              onerror="this.onerror=null; this.src='https://image-comic.pstatic.net/webtoon/796152/thumbnail/thumbnail_IMAG21_2bb4fa2e-6d47-4ae6-a664-89ce1d394464.jpg';" 
+              alt="마루는 강쥐" 
+              class="thumb-img"
+            />
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="card-index">RECOMMEND #02</span>
+              <span class="platform-badge">네이버웹툰</span>
+            </div>
+            <h3 class="card-title">마루는 강쥐</h3>
+            <p class="card-author"><i data-lucide="user" style="width: 14px; height: 14px;"></i> 작가: 모죠</p>
+
+            <div class="info-box">
+              <span class="label"><i data-lucide="book-open" style="width: 13px; height: 13px;"></i> 웹툰 소개</span>
+              <p class="desc">우리 집 강아지 마루가 사람이 되었다, 그것도 5살 아이로! 강아지 + 어린아이의 무한 에너지와 호기심을 지닌 사고뭉치 강쥐 탄생! 마루야~! 또 어디가!!! 유쾌한 이웃들과 우당탕탕 즐거운 마루의 나날들</p>
+            </div>
+
+            <div class="reason-box">
+              <span class="label"><i data-lucide="sparkle" style="width: 13px; height: 13px;"></i> 추천 이유</span>
+              <p class="desc">강아지 마루가 사람이 되어서 대화를 할 수 있다면? 하고 생각해본 사람들이 공감하며 볼 수 있다.</p>
+            </div>
+
+            <div class="interaction-bar">
+              <button class="btn-interact btn-like" onclick="toggleLike('toon-2')">
+                <i data-lucide="heart" style="width: 15px; height: 15px;"></i>
+                <span>좋아요</span>
+              </button>
+              <button class="btn-interact btn-upvote" onclick="addVote('toon-2')">
+                <i data-lucide="thumbs-up" style="width: 15px; height: 15px;"></i>
+                <span>추천</span>
+                <span class="count-badge" id="votes-toon-2">198</span>
+              </button>
+            </div>
+
+            <div class="card-actions">
+              <a href="https://comic.naver.com/webtoon/list?titleId=796152" target="_blank" rel="noopener noreferrer" class="btn-link">
+                작품 감상하러 가기 <i data-lucide="external-link" style="width: 15px; height: 15px;"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. 놓지마 정신줄 (funnyimage4.jpg) -->
+        <article class="card" data-id="toon-3" data-base-votes="231">
+          <div class="thumb-wrapper">
+            <img 
+              src="images/funnyimage4.jpg" 
+              onerror="this.onerror=null; this.src='https://image-comic.pstatic.net/webtoon/81482/thumbnail/thumbnail_IMAG21_3937989392237890911.jpg';" 
+              alt="놓지마 정신줄" 
+              class="thumb-img"
+            />
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="card-index">RECOMMEND #03</span>
+              <span class="platform-badge">네이버웹툰</span>
+            </div>
+            <h3 class="card-title">놓지마 정신줄</h3>
+            <p class="card-author"><i data-lucide="users" style="width: 14px; height: 14px;"></i> 작가: 글-신태훈, 그림-나승훈</p>
+
+            <div class="info-box">
+              <span class="label"><i data-lucide="book-open" style="width: 13px; height: 13px;"></i> 웹툰 소개</span>
+              <p class="desc">정신, 정주리 남매와 독특한 주변 인물들의 정신줄 놓게 만드는 다양한 에피소드들! 본격 유체이탈 예방 프로젝트 ‘놓지마 정신줄!’</p>
+            </div>
+
+            <div class="reason-box">
+              <span class="label"><i data-lucide="sparkle" style="width: 13px; height: 13px;"></i> 추천 이유</span>
+              <p class="desc">공대생 출신에 무표정으로 기행을 벌이는 '정신', 폭력적이지만 실상은 가장 현실적인 여동생 '정주리', 엉뚱한 부모님 등 각 인물의 개성이 뚜렷해 에피소드마다 예측 불가한 앙상블을 만듭니다.</p>
+            </div>
+
+            <div class="interaction-bar">
+              <button class="btn-interact btn-like" onclick="toggleLike('toon-3')">
+                <i data-lucide="heart" style="width: 15px; height: 15px;"></i>
+                <span>좋아요</span>
+              </button>
+              <button class="btn-interact btn-upvote" onclick="addVote('toon-3')">
+                <i data-lucide="thumbs-up" style="width: 15px; height: 15px;"></i>
+                <span>추천</span>
+                <span class="count-badge" id="votes-toon-3">231</span>
+              </button>
+            </div>
+
+            <div class="card-actions">
+              <a href="https://comic.naver.com/webtoon/list?titleId=81482" target="_blank" rel="noopener noreferrer" class="btn-link">
+                작품 감상하러 가기 <i data-lucide="external-link" style="width: 15px; height: 15px;"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. 이말년시리즈 (funnyimage1.jpg) -->
+        <article class="card" data-id="toon-4" data-base-votes="310">
+          <div class="thumb-wrapper">
+            <img 
+              src="images/funnyimage1.jpg" 
+              onerror="this.onerror=null; this.src='https://image-comic.pstatic.net/webtoon/103391/thumbnail/thumbnail_IMAG21_3937989392237890911.jpg';" 
+              alt="이말년시리즈" 
+              class="thumb-img"
+            />
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="card-index">RECOMMEND #04</span>
+              <span class="platform-badge">네이버웹툰</span>
+            </div>
+            <h3 class="card-title">이말년시리즈</h3>
+            <p class="card-author"><i data-lucide="user" style="width: 14px; height: 14px;"></i> 작가: 이말년</p>
+
+            <div class="info-box">
+              <span class="label"><i data-lucide="book-open" style="width: 13px; height: 13px;"></i> 웹툰 소개</span>
+              <p class="desc">독특한 이야기 전개 방식을 확립한 이말년 작가가 선보이는 엉뚱한 상상과 황당한 설정의 새로운 개그 웹툰</p>
+            </div>
+
+            <div class="reason-box">
+              <span class="label"><i data-lucide="sparkle" style="width: 13px; height: 13px;"></i> 추천 이유</span>
+              <p class="desc">"와장창", "이렇게 된 이상 청와대로 간다", "불타는 효도", "가차없는 펀치" 등 수많은 명대사와 짤방을 탄생시키며 한국 웹 문화 전반에 지대한 영향을 미친 상징성을 가집니다.</p>
+            </div>
+
+            <div class="interaction-bar">
+              <button class="btn-interact btn-like" onclick="toggleLike('toon-4')">
+                <i data-lucide="heart" style="width: 15px; height: 15px;"></i>
+                <span>좋아요</span>
+              </button>
+              <button class="btn-interact btn-upvote" onclick="addVote('toon-4')">
+                <i data-lucide="thumbs-up" style="width: 15px; height: 15px;"></i>
+                <span>추천</span>
+                <span class="count-badge" id="votes-toon-4">310</span>
+              </button>
+            </div>
+
+            <div class="card-actions">
+              <a href="https://comic.naver.com/webtoon/list?titleId=103391" target="_blank" rel="noopener noreferrer" class="btn-link">
+                작품 감상하러 가기 <i data-lucide="external-link" style="width: 15px; height: 15px;"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="analysis-container">
+      <h2 class="section-title" style="margin-bottom: 16px;">
+        <i data-lucide="layers"></i> 장르의 공통 특징 및 매력
+      </h2>
+
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <div class="analysis-header">
+            <i data-lucide="check-circle-2"></i> 4개 작품의 공통 장르적 특징
+          </div>
+          <ul class="analysis-list">
+            <li><strong>현실 밀착형 공감과 만화적 과장</strong>: 평범한 일상이나 보편적 상황을 극단적인 과장과 코믹한 설정으로 비틀어 냅니다.</li>
+            <li><strong>부담 없는 옴니버스 단편 구성</strong>: 장기 서사 이해 없이 어느 화부터 보아도 즉각적인 웃음을 줍니다.</li>
+            <li><strong>뚜렷하고 입체적인 캐릭터성</strong>: 무표정한 공대생, 강아지 아이 등 인물 자체가 개그를 주도합니다.</li>
+            <li><strong>인터넷 밈(Meme) 확산성</strong>: 짤방과 명대사로 독자 커뮤니티에서 폭넓게 공유됩니다.</li>
+          </ul>
+        </div>
+
+        <div class="analysis-card">
+          <div class="analysis-header">
+            <i data-lucide="smile"></i> 해당 장르(개그)의 매력
+          </div>
+          <p style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.6; margin-bottom: 12px;">
+            <strong>최고의 심리적 환기 및 스트레스 해소</strong>: 복잡한 세계관, 빌드업 없이 직관적인 웃음만으로 뇌를 쉬게 해주는 순수 도파민성 장르입니다.
+          </p>
+          <div class="highlight-box">
+            💡 일상 속 피로를 잊고 가볍게 힐링하고 싶을 때 언제든 꺼내보기 가장 좋은 장르입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const STORAGE_LIKES = 'webtoon_likes_v1';
+    const STORAGE_VOTES = 'webtoon_votes_v1';
+
+    function getStoredData(key, defaultVal) {
+      try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : defaultVal;
+      } catch (e) {
+        return defaultVal;
+      }
+    }
+
+    function saveStoredData(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const likes = getStoredData(STORAGE_LIKES, {});
+      const votes = getStoredData(STORAGE_VOTES, {});
+
+      document.querySelectorAll('.card').forEach(card => {
+        const toonId = card.dataset.id;
+        const baseVotes = parseInt(card.dataset.baseVotes, 10) || 0;
+
+        const userAddedVotes = votes[toonId] || 0;
+        const totalVotes = baseVotes + userAddedVotes;
+        const voteSpan = document.getElementById(`votes-${toonId}`);
+        if (voteSpan) {
+          voteSpan.textContent = totalVotes;
+        }
+
+        if (likes[toonId]) {
+          const likeBtn = card.querySelector('.btn-like');
+          if (likeBtn) {
+            likeBtn.classList.add('active');
+            const label = likeBtn.querySelector('span');
+            if (label) label.textContent = '좋아요 취소';
+          }
+        }
+      });
+    });
+
+    function toggleLike(toonId) {
+      const card = document.querySelector(`.card[data-id="${toonId}"]`);
+      if (!card) return;
+
+      const likeBtn = card.querySelector('.btn-like');
+      const likes = getStoredData(STORAGE_LIKES, {});
+      const isLiked = !likes[toonId];
+
+      likes[toonId] = isLiked;
+      saveStoredData(STORAGE_LIKES, likes);
+
+      if (isLiked) {
+        likeBtn.classList.add('active');
+        likeBtn.querySelector('span').textContent = '좋아요 취소';
+      } else {
+        likeBtn.classList.remove('active');
+        likeBtn.querySelector('span').textContent = '좋아요';
+      }
+      lucide.createIcons();
+    }
+
+    function addVote(toonId) {
+      const card = document.querySelector(`.card[data-id="${toonId}"]`);
+      if (!card) return;
+
+      const baseVotes = parseInt(card.dataset.baseVotes, 10) || 0;
+      const votes = getStoredData(STORAGE_VOTES, {});
+      votes[toonId] = (votes[toonId] || 0) + 1;
+      saveStoredData(STORAGE_VOTES, votes);
+
+      const voteSpan = document.getElementById(`votes-${toonId}`);
+      if (voteSpan) {
+        voteSpan.textContent = baseVotes + votes[toonId];
+      }
+
+      const upBtn = card.querySelector('.btn-upvote');
+      upBtn.classList.add('voted');
+      setTimeout(() => {
+        upBtn.classList.remove('voted');
+      }, 300);
+    }
+  </script>
+</body>
+</html>
